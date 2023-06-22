@@ -1,60 +1,73 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import '../Components/Page.css'
+
 
 function Search() {
-  const [pokemonName, setPokemonName] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [pokemonData, setPokemonData] = useState(null);
 
-  const handleSearch = () => {
-    if (pokemonName.trim() === '') {
-      setError('Please enter a Pokemon name');
-      return;
-    }
+  const [topics, setTopics] = useState([])
 
-    setLoading(true);
-    setError('');
+  const [joke, setJoke] = useState(null)
 
-    fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
+
+  useEffect(() => {
+    fetch(`https://api.chucknorris.io/jokes/categories`)
+
+    .then(response => {
+      console.log(response)
+      if (!response) {
+        throw new Error('No response');
+      }
+      return response.json();
+
+    })
+    .then(data => {
+      setTopics(data)
+      console.log(data)
+    })
+    .catch(error => {
+
+
+    })
+
+  }, []);
+
+   function setjoke (topi) {
+   
+
+   fetch(`https://api.chucknorris.io/jokes/random?category=${topi}`)
       .then(response => {
+        //console.log(response)
         if (!response) {
-          throw new Error('Pokemon not found');
+          throw new Error('No response')
         }
-        return response.json();
+        return response.json()
       })
       .then(data => {
-        setLoading(false);
-        setPokemonData(data);
+        setJoke(data.value)
+        console.log(data.value)
+
       })
       .catch(error => {
-        setLoading(false);
-        setError(error.message);
-      });
-  };
+
+      }) 
+  }; 
 
   return (
     <div>
-      <h1>Pokemon Search</h1>
-      <input
-        type="text"
-        value={pokemonName}
-        onChange={e => setPokemonName(e.target.value)}
-        placeholder="Enter a Pokemon name"
-      />
-      <button onClick={handleSearch}>Search</button>
+      <div className='view'>
+        <h1>Chuck Norries</h1>
 
-      {loading && <div>Loading...</div>}
-      {error && <div>{error}</div>}
 
-      {pokemonData && (
-        <div>
-          <h2>{pokemonData.name}</h2>
-          <img
-            src={pokemonData.sprites.front_default}
-            alt={pokemonData.name}
-          />
+
+        <div class="container">
+
+          {topics.map((topic) => { return (<div className="topicss" onClick={() => setjoke(topic)}> <div style= {{fontSize : "1.5em"}}>{topic.charAt(0).toUpperCase()+topic.slice(1)}</div><div>Unlimited Jokes On {topic.charAt(0).toUpperCase()+topic.slice(1)}</div>
+          
+          </div>) }
+          )}
+
         </div>
-      )}
+      </div>
     </div>
   );
 }
