@@ -6,8 +6,12 @@ function Search() {
 
   const [topics, setTopics] = useState([])
 
-  const [joke, setJoke] = useState(null)
+  const [joke, setJoke] = useState({
+    name : "",
+    joke : ""
+  })
 
+  const [handlejoke, setHandlejoke] = useState(false)
 
   useEffect(() => {
     fetch(`https://api.chucknorris.io/jokes/categories`)
@@ -31,10 +35,12 @@ function Search() {
 
   }, []);
 
+
    function setjoke (topi) {
    
-
+    setJoke((prev) => ({...prev,name:topi.charAt(0).toUpperCase()+topi.slice(1)}))
    fetch(`https://api.chucknorris.io/jokes/random?category=${topi}`)
+   
       .then(response => {
         //console.log(response)
         if (!response) {
@@ -43,7 +49,8 @@ function Search() {
         return response.json()
       })
       .then(data => {
-        setJoke(data.value)
+        setJoke((prev) => ({...prev,joke:data.value}))
+        setHandlejoke(true)
         console.log(data.value)
 
       })
@@ -52,10 +59,11 @@ function Search() {
       }) 
   }; 
 
+
   return (
     <div>
       <div className='view'>
-        <h1>Chuck Norries</h1>
+        <h1 style={{textDecorationColor:"green"}}>Chuck Norries</h1>
 
 
 
@@ -64,8 +72,9 @@ function Search() {
           {topics.map((topic) => { return (<div className="topicss" onClick={() => setjoke(topic)}> <div style= {{fontSize : "1.5em"}}>{topic.charAt(0).toUpperCase()+topic.slice(1)}</div><div>Unlimited Jokes On {topic.charAt(0).toUpperCase()+topic.slice(1)}</div>
           
           </div>) }
-          )}
-
+          )}  
+ 
+        <div className='joke'><p style= {{fontSize : "1.5em"}}>{joke.name}</p><p>{joke.joke}</p><button onClick={() => setjoke(joke.name)}>Next Joke</button></div>
         </div>
       </div>
     </div>
