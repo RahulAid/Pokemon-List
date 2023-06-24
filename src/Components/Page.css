@@ -1,12 +1,12 @@
 .view{
-    height: 110vw;
-    width: 100vw;
+    height: auto;
+    width: auto;
     background-color: blue;
 }
 
 .container{
-    height:92%;
-    width :100%;
+    height:50rem;
+    width :auto;
     display:flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -18,14 +18,14 @@
 }
 
 .topicss {
-    height: 12%;
+    height: 10rem;
     width: 18%;
     display:flex;
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    margin: 1%;
+    margin: 1rem;
     border: black solid;
     border-radius: 0.8em;
     background-color: white;
@@ -34,8 +34,8 @@
 
 
 .joke {
-    height: 20%;
-    width: 80%;
+    height: auto;
+    width: 50rem;
     display:flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -46,6 +46,63 @@
     border-radius: 0.8em;
     background-color: white;
     border-width: thin;
+}
+
+.closebutton {
+    width :2rem;
+    margin-top : 1rem;
+    margin-right: -45rem;
+    
+}
+
+@media (max-width: 768px) and (min-width:469px){
+
+    .view{
+        height: auto;
+        width: auto;
+        background-color: blue;
+    }
+
+    .topicss {
+        height: 8rem;
+        width: 9rem;
+        display:flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        margin: 2rem;
+        border: black solid;
+        border-radius: 0.8em;
+        background-color: white;
+        border-width: thin;
+    }
+}
+
+
+@media (max-width: 468px){
+
+    .view{
+        height: auto;
+        width: auto;
+        background-color: blue;
+    }
+        
+    
+    .topicss {
+        height:6rem;
+        width: 21rem;
+        display:flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        margin: 2rem;
+        border: black solid;
+        border-radius: 0.8em;
+        background-color: white;
+        border-width: thin;
+    }
 }
 
 
