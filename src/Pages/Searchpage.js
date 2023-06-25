@@ -79,7 +79,7 @@ function Search() {
           </div>) }
           )}  
  
-        {handlejoke && (<div className='joke'><button className="closebutton" onClick={() => handlejokeclose()}>X</button><p style= {{fontSize : "1.5em"}}>{joke.name}</p><p>{joke.joke}</p><button onClick={() => setjoke(joke.name)}>Next Joke</button></div>)}
+        {handlejoke && (<div className='joke'><div className='jokecontainer'><button className="closebutton" onClick={() => handlejokeclose()}>X</button><p style= {{fontSize : "1.5em"}}>{joke.name}</p><p>{joke.joke}</p><button className="next" onClick={() => setjoke(joke.name)}>Next Joke</button></div></div>)}
         </div>
       </div>
     </div>
