@@ -1,5 +1,5 @@
 import './App.css';
-import Search from './Pages/Searchpage';
+import Search from './Components/Searchpage';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 

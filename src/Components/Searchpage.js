@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../Components/Page.css'
-
+import JokePopup from './JokePopup';
 
 function Search() {
 
@@ -11,6 +11,11 @@ function Search() {
     joke : ""
   })
 
+  //important
+  //(<div className='joke'><div className='jokecontainer'><button className="closebutton" onClick={() => handlejokeclose()}>X</button><p style= {{fontSize : "1.5em"}}>{joke.name}</p><p>{joke.joke}</p><button className="next" onClick={() => setjoke("animal")}>Next Joke</button></div></div>)
+
+  const [names,setNames] = useState("")
+  const [jokes,setJokes] = useState("")
   const [handlejoke, setHandlejoke] = useState(false)
 
   const handlejokeclose = () => {
@@ -41,12 +46,15 @@ function Search() {
 
 
    function setjoke (topi) {
+    
+    setNames(topi)
+    //var search = topi
    
-    setJoke((prev) => ({...prev,name:topi.charAt(0).toUpperCase()+topi.slice(1)}))
+    //setJoke((prev) => ({...prev,name:topi.charAt(0).toUpperCase()+topi.slice(1)}))
    fetch(`https://api.chucknorris.io/jokes/random?category=${topi}`)
    
       .then(response => {
-        //console.log(response)
+        console.log(response)
         if (!response) {
           throw new Error('No response')
         }
@@ -55,8 +63,8 @@ function Search() {
       .then(data => {
         setJoke((prev) => ({...prev,joke:data.value}))
         
-        setHandlejoke(!handlejoke)
-        console.log(data.value)
+          setHandlejoke(!handlejoke)
+          //console.log(data.value)
 
       })
       .catch(error => {
@@ -79,7 +87,7 @@ function Search() {
           </div>) }
           )}  
  
-        {handlejoke && (<div className='joke'><div className='jokecontainer'><button className="closebutton" onClick={() => handlejokeclose()}>X</button><p style= {{fontSize : "1.5em"}}>{joke.name}</p><p>{joke.joke}</p><button className="next" onClick={() => setjoke(joke.name)}>Next Joke</button></div></div>)}
+        {handlejoke && <JokePopup names={names} jokes={joke.joke} closejoke={handlejokeclose}/>}
         </div>
       </div>
     </div>
